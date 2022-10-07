@@ -1,0 +1,79 @@
+﻿<Window x:Class="FolderCleaner.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FolderCleaner"
+        mc:Ignorable="d"
+        Title="Folder Cleaner" SizeToContent="WidthAndHeight">
+    <!-- データバインディングの対象となるビューモデルの指定 -->
+    <Window.DataContext>
+        <local:ViewModel />
+    </Window.DataContext>
+    <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="確認フォルダ一覧:" Height="20" FontSize="16" Margin="10"/>
+
+            <ListBox Height="210" Width="200" Margin="10" 
+                     ItemsSource="{Binding Items}" 
+                     SelectedItem="{Binding SelectedItem}"
+                     x:Name="itemListBox" 
+                     SelectionChanged="ItemListBox_SelectionChanged">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="追加" Command="{Binding Path=AddCommand}"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+                <!-- ListBox で表示される値を変更する -->
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding Name}" FontSize="18"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <Button Height="30" Width="200" Margin="10" Content="除外リスト" Click="Button_Click"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical">
+            <!-- 地域のリスト -->
+            <ListBox Height="300" Width="500" Margin="10" ItemsSource="{Binding Infos}" x:Name="infoListBox" >
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="編集" Command="{Binding Path=EditCommand}"/>
+                        <MenuItem Header="削除" Command="{Binding Path=DeleteCommand}"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <!-- 名前 -->
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="名前:" FontSize="16" />
+                                <Label Content="{Binding Name}" FontSize="16"/>
+                            </StackPanel>
+                            <!-- 検索パス -->
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="検索フォルダ:" FontSize="16" />
+                                <Label Content="{Binding _Item.ScanPath}" FontSize="16"/>
+                            </StackPanel>
+                            <!-- 移動タイミング -->
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="移動タイミング:" FontSize="16" />
+                                <Label Content="{Binding _Item.Day}" FontSize="16"/>
+                                <Label Content="日" FontSize="16" />
+                            </StackPanel>
+                            <!-- 移動先フォルダ -->
+                            <StackPanel Orientation="Horizontal">
+                                <!-- 情報 -->
+                                <Label Content="移動先フォルダ:" FontSize="16" />
+                                <Label Content="{Binding _Item.TargetPath}" FontSize="16"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+       
+    </StackPanel>
+</Window>
