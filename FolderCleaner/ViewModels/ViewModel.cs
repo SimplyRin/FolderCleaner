@@ -10,7 +10,7 @@ using System.Diagnostics;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 
-namespace FolderCleaner
+namespace FolderCleaner.ViewModels
 {
     public class ViewModel : ObservableObject
     {
@@ -53,6 +53,9 @@ namespace FolderCleaner
         // データリスト
         private List<Item> items = ItemFactory.GetItems();
 
+        // データリスト
+        public List<Item> ignoreItems = IgnoreItemFactory.GetItems();
+
         // データリスト（プロパティ）
         public List<Item> Items {
             get {
@@ -65,6 +68,19 @@ namespace FolderCleaner
                 MainWindow.GetInstance().UpdateInfoBox();
 
                 ItemFactory.SaveItems(this.items);
+            }
+        }
+
+        // データリスト（プロパティ）
+        public List<Item> IgnoreItems
+        {
+            get
+            {
+                return IgnoreViewModel.GetInstance().IgnoreItems;
+            }
+            set
+            {
+                IgnoreViewModel.GetInstance().IgnoreItems = value;
             }
         }
 
@@ -113,6 +129,8 @@ namespace FolderCleaner
         public void ShowIgnoreList()
         {
             // Infos = IgnoreItemFactory.GetInfos();
+            var ignore = new IgnoreListWindow();
+            ignore.Show();
         }
 
         public void Add()

@@ -1,13 +1,13 @@
-﻿<Window x:Class="FolderCleaner.DeleteWindow"
+﻿<Window x:Class="FolderCleaner.Views.IgnoreDeleteWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FolderCleaner.ViewModels"
         mc:Ignorable="d"
-        Title="削除確認" SizeToContent="WidthAndHeight">
+        Title="IgnoreDeleteWindow" SizeToContent="WidthAndHeight">
     <Window.DataContext>
-        <local:DeleteViewModel />
+        <local:IgnoreDeleteViewModel />
     </Window.DataContext>
     <StackPanel Orientation="Vertical">
         <StackPanel Orientation="Horizontal" Margin="20">
@@ -19,9 +19,8 @@
         <Label x:Name="XUniqueId" Content="" Height="0" Width="0" Visibility="Hidden"/>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Height="30" Width="70" Margin="10" Content="削除" Click="OnDeleteButton_Click"/>
+            <Button Height="30" Width="70" Margin="10" Content="削除" Click="OnDoneButton_Click"/>
             <Button Height="30" Width="100" Margin="10" Content="キャンセル" Click="OnCancelButton_Click"/>
         </StackPanel>
     </StackPanel>
-    
 </Window>

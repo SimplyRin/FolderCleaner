@@ -1,27 +1,26 @@
-﻿<Window x:Class="FolderCleaner.DeleteWindow"
+﻿<Window x:Class="FolderCleaner.Views.IgnoreAddWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FolderCleaner.ViewModels"
         mc:Ignorable="d"
-        Title="削除確認" SizeToContent="WidthAndHeight">
+        Title="IgnoreAddWindow" SizeToContent="WidthAndHeight">
     <Window.DataContext>
-        <local:DeleteViewModel />
+        <local:IgnoreAddViewModel />
     </Window.DataContext>
     <StackPanel Orientation="Vertical">
-        <StackPanel Orientation="Horizontal" Margin="20">
-            <Label Content="「" FontSize="18"/>
-            <Label x:Name="XName" Content="{Binding TName}" FontSize="18"/>
-            <Label Content="」を本当に削除しますか？" FontSize="18"/>
+        <Label Content="このリストに登録したファイルは移動処理されません。" FontSize="18" Margin="10"/>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="ファイル名:" FontSize="18" Margin="10"/>
+            <local:PlaceholderTextBox x:Name="XName" Text="{Binding TName}" Placeholder=""  Height="30" Width="400" Margin="12" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></local:PlaceholderTextBox>
         </StackPanel>
 
         <Label x:Name="XUniqueId" Content="" Height="0" Width="0" Visibility="Hidden"/>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Height="30" Width="70" Margin="10" Content="削除" Click="OnDeleteButton_Click"/>
+            <Button Height="30" Width="70" Margin="10" Content="完了" Click="OnDoneButton_Click"/>
             <Button Height="30" Width="100" Margin="10" Content="キャンセル" Click="OnCancelButton_Click"/>
         </StackPanel>
     </StackPanel>
-    
 </Window>

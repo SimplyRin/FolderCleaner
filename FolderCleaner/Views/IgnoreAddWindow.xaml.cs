@@ -14,19 +14,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace FolderCleaner
+namespace FolderCleaner.Views
 {
     /// <summary>
-    /// DeleteWindow.xaml の相互作用ロジック
+    /// IgnoreAddWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class DeleteWindow : Window
+    public partial class IgnoreAddWindow : Window
     {
-        public DeleteWindow()
+        public IgnoreAddWindow()
         {
             InitializeComponent();
         }
 
-        private void OnDeleteButton_Click(object sender, RoutedEventArgs e)
+        private void OnDoneButton_Click(object sender, RoutedEventArgs e)
         {
             var uniqueId = this.XUniqueId.Content;
             if (uniqueId == null)
@@ -35,19 +35,38 @@ namespace FolderCleaner
             }
 
             var viewModel = ViewModel.GetInstance();
-            var items = viewModel.Items;
+            var items = viewModel.IgnoreItems;
 
-            var newList = new List<Item>();
+            if (this.XName.Text.Length == 0)
+            {
+                var error = new ErrorWindow();
+                error.XDescription.Content = "フィールドに値を正しく入力してください。";
+                error.Show();
+                return;
+            }
+
+            var changed = false;
 
             foreach (var item in items)
             {
-                if (!item.UniqueId.Equals(uniqueId))
+                if (item.UniqueId.Equals(uniqueId))
                 {
-                    newList.Add(item);
+                    changed = true;
+
+                    item.Name = this.XName.Text;
                 }
             }
 
-            viewModel.Items = newList;
+            if (!changed)
+            {
+                items.Add(new Item()
+                {
+                    UniqueId = (string)uniqueId,
+                    Name = this.XName.Text,
+                });
+            }
+
+            viewModel.IgnoreItems = items;
 
             this.Close();
         }

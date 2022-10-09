@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FolderCleaner
+namespace FolderCleaner.ViewModels
 {
     public class AddViewModel : ObservableObject
     {

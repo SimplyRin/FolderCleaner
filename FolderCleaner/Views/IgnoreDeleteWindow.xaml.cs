@@ -14,19 +14,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace FolderCleaner
+namespace FolderCleaner.Views
 {
     /// <summary>
-    /// DeleteWindow.xaml の相互作用ロジック
+    /// IgnoreDeleteWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class DeleteWindow : Window
+    public partial class IgnoreDeleteWindow : Window
     {
-        public DeleteWindow()
+        public IgnoreDeleteWindow()
         {
             InitializeComponent();
         }
 
-        private void OnDeleteButton_Click(object sender, RoutedEventArgs e)
+        private void OnDoneButton_Click(object sender, RoutedEventArgs e)
         {
             var uniqueId = this.XUniqueId.Content;
             if (uniqueId == null)
@@ -35,7 +35,7 @@ namespace FolderCleaner
             }
 
             var viewModel = ViewModel.GetInstance();
-            var items = viewModel.Items;
+            var items = viewModel.IgnoreItems;
 
             var newList = new List<Item>();
 
@@ -47,7 +47,7 @@ namespace FolderCleaner
                 }
             }
 
-            viewModel.Items = newList;
+            viewModel.IgnoreItems = newList;
 
             this.Close();
         }

@@ -7,14 +7,10 @@ using System.Threading.Tasks;
 
 namespace FolderCleaner.ViewModels
 {
-    public class DeleteViewModel : ObservableObject
+    public class IgnoreDeleteViewModel : ObservableObject
     {
 
-        private object tName;
-
-        public object TName { get => tName; set => SetProperty(ref tName, value); }
-
-
+        
 
     }
 }

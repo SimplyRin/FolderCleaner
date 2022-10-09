@@ -3,10 +3,35 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FolderCleaner"
+        xmlns:local="clr-namespace:FolderCleaner.ViewModels"
         mc:Ignorable="d"
-        Title="IgnoreListWindow" Height="450" Width="800">
-    <Grid>
+        Title="除外リスト" SizeToContent="WidthAndHeight">
+    <Window.DataContext>
+        <local:IgnoreViewModel />
+    </Window.DataContext>
+
+    <StackPanel Orientation="Vertical">
+        <TextBlock Text="除外ファイル名一覧:" Height="20" FontSize="16" Margin="10"/>
         
-    </Grid>
+        <ListBox Height="210" Width="200" Margin="10" 
+                     ItemsSource="{Binding IgnoreItems}" 
+                     SelectedItem="{Binding SelectedItem}"
+                     x:Name="ignoreItemListBox" 
+                     SelectionChanged="ItemListBox_SelectionChanged">
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="追加" Command="{Binding Path=AddCommand}"/>
+                    <MenuItem Header="削除" Command="{Binding Path=DeleteCommand}"/>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+            <!-- ListBox で表示される値を変更する -->
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding Name}" FontSize="18"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button Height="30" Width="200" Margin="10" Content="閉じる" Click="Button_Click"/>
+    </StackPanel>
 </Window>

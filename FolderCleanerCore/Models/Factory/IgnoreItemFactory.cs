@@ -28,7 +28,7 @@ namespace FolderCleanerCore.Models
         }
 
         // データを取得する
-        private static List<Item> GetItems()
+        public static List<Item> GetItems()
         {
             if (!File.Exists(GetConfigFilePath()))
             {
@@ -43,7 +43,19 @@ namespace FolderCleanerCore.Models
                     {
                         UniqueId = Guid.NewGuid().ToString(),
                         Name = "*.exe",
-                    }
+                    },
+
+                    // WMP で生成される不要なファイルは無視
+                    new Item()
+                    {
+                        UniqueId = Guid.NewGuid().ToString(),
+                        Name = "folder.jpg",
+                    },
+                    new Item()
+                    {
+                        UniqueId= Guid.NewGuid().ToString(),
+                        Name = "albumartsmall.jpg",
+                    },
                 };
 
                 IgnoreItemFactory.SaveItems(list);

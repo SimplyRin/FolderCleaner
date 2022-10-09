@@ -1,4 +1,5 @@
-﻿using FolderCleanerCore.Models;
+﻿using FolderCleaner.ViewModels;
+using FolderCleanerCore.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
