@@ -37,20 +37,21 @@ static void ForDirectory(Item item, String directory)
     var info = new DirectoryInfo(directory);
     var files = info.GetFiles();
 
+    foreach (var d in info.GetDirectories())
+    {
+        ForDirectory(item, d.FullName);
+    }
+
     foreach (var file in files)
     {
-        if (File.GetAttributes(file.FullName).HasFlag(FileAttributes.Directory))
-        {
-            ForDirectory(item, file.FullName);
-            return;
-        }
+        // Console.WriteLine("- " + file.FullName);
 
         var lastAccess = File.GetLastAccessTime(file.FullName);
         var now = DateTime.Now;
 
         int days = (int)(now - lastAccess).TotalDays;
 
-        // Console.WriteLine(days + "日: " + file.Directory?.FullName + " _ " + file.Name);
+        Console.WriteLine(days + "日: " + file.Directory?.FullName + " _ " + file.Name);
 
         var _continue = false;
         foreach (var ignore in GetIgnoreFiles())
@@ -75,7 +76,7 @@ static void ForDirectory(Item item, String directory)
                 }
             });
 
-            if (new Regex(regexPattern).IsMatch(file.Name))
+            if (new Regex(regexPattern.ToLower()).IsMatch(file.Name.ToLower()))
             {
                 // Console.WriteLine("[Regex] True: " + file.Name + ", " + ignore);
                 _continue = true;
@@ -107,9 +108,10 @@ static void ForDirectory(Item item, String directory)
 
             try
             {
-                Console.WriteLine(days + "日: " + file.Directory?.FullName + " _ " + file.Name);
-                Console.WriteLine(filename + " を移動します。");
-                // file.MoveTo(item.TargetPath + Path.DirectorySeparatorChar + filename);
+                Console.WriteLine($"{days}日: {file.Directory?.FullName} _ {file.Name}");
+                Console.WriteLine($"{filename} を {item.TargetPath} に移動します。");
+
+                file.MoveTo(item.TargetPath + Path.DirectorySeparatorChar + filename);
             }
             catch (Exception e)
             {
