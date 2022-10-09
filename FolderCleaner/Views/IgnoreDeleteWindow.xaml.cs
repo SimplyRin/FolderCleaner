@@ -14,23 +14,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace FolderCleaner.Views
-{
+namespace FolderCleaner.Views {
     /// <summary>
     /// IgnoreDeleteWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class IgnoreDeleteWindow : Window
-    {
-        public IgnoreDeleteWindow()
-        {
+    public partial class IgnoreDeleteWindow : Window {
+        public IgnoreDeleteWindow() {
             InitializeComponent();
         }
 
-        private void OnDoneButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void OnDoneButton_Click(object sender, RoutedEventArgs e) {
             var uniqueId = this.XUniqueId.Content;
-            if (uniqueId == null)
-            {
+            if (uniqueId == null) {
                 uniqueId = Guid.NewGuid().ToString();
             }
 
@@ -39,10 +34,8 @@ namespace FolderCleaner.Views
 
             var newList = new List<Item>();
 
-            foreach (var item in items)
-            {
-                if (!item.UniqueId.Equals(uniqueId))
-                {
+            foreach (var item in items) {
+                if (!item.UniqueId.Equals(uniqueId)) {
                     newList.Add(item);
                 }
             }
@@ -52,8 +45,7 @@ namespace FolderCleaner.Views
             this.Close();
         }
 
-        private void OnCancelButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void OnCancelButton_Click(object sender, RoutedEventArgs e) {
             this.Close();
         }
     }

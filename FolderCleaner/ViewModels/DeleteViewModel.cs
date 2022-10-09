@@ -5,10 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FolderCleaner.ViewModels
-{
-    public class DeleteViewModel : ObservableObject
-    {
+namespace FolderCleaner.ViewModels {
+    public class DeleteViewModel : ObservableObject {
 
         private object tName;
 

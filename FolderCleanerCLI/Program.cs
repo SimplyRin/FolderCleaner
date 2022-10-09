@@ -3,47 +3,41 @@ using System.Text.RegularExpressions;
 
 var items = ItemFactory.GetItems();
 
-foreach (var item in items)
-{
+foreach (var item in items) {
     var name = item.Name;
     var scanPath = item.ScanPath;
     var day = item.Day;
     var targetPath = item.TargetPath;
 
     Console.WriteLine("処理開始:" +
-        "\n\tName:" + name +
-        "\n\tScanPath: " + scanPath +
-        "\n\tDay: " + day +
-        "\n\tTargetPath: " + targetPath);
+        $"\n\tName: {name}" +
+        $"\n\tScanPath: {scanPath}" +
+        $"\n\tDay: {day}" +
+        $"\n\tTargetPath: {targetPath}");
 
     EachDirectory(item);
 }
 
-static void EachDirectory(Item item)
-{
+static void EachDirectory(Item item) {
     var directory = item.ScanPath;
 
-    if (!Directory.Exists(directory))
-    {
-        Console.WriteLine(directory + " が見つかりませんでした。");
+    if (!Directory.Exists(directory)) {
+        Console.WriteLine($"{directory} が見つかりませんでした。");
         return;
     }
 
     ForDirectory(item, directory);
 }
 
-static void ForDirectory(Item item, String directory)
-{
+static void ForDirectory(Item item, String directory) {
     var info = new DirectoryInfo(directory);
     var files = info.GetFiles();
 
-    foreach (var d in info.GetDirectories())
-    {
+    foreach (var d in info.GetDirectories()) {
         ForDirectory(item, d.FullName);
     }
 
-    foreach (var file in files)
-    {
+    foreach (var file in files) {
         // Console.WriteLine("- " + file.FullName);
 
         var lastAccess = File.GetLastAccessTime(file.FullName);
@@ -51,51 +45,40 @@ static void ForDirectory(Item item, String directory)
 
         int days = (int)(now - lastAccess).TotalDays;
 
-        Console.WriteLine(days + "日: " + file.Directory?.FullName + " _ " + file.Name);
+        Console.WriteLine($"{days}日: {file.Directory?.FullName} _ ${file.Name}");
 
         var _continue = false;
-        foreach (var ignore in GetIgnoreFiles())
-        {
+        foreach (var ignore in GetIgnoreFiles()) {
             // Console.WriteLine(file.Name + ", " + ignore);
 
-            var regexPattern = Regex.Replace(ignore, ".", m =>
-            {
+            var regexPattern = Regex.Replace(ignore, ".", m => {
                 String s = m.Value;
-                if (s.Equals("?"))
-                {
+                if (s.Equals("?")) {
                     return ".";
-                }
-                else if (s.Equals("*"))
-                {
+                } else if (s.Equals("*")) {
                     return ".*";
-                }
-                else
-                {
+                } else {
                     //上記以外はエスケープする
                     return Regex.Escape(s);
                 }
             });
 
-            if (new Regex(regexPattern.ToLower()).IsMatch(file.Name.ToLower()))
-            {
+            if (new Regex(regexPattern.ToLower()).IsMatch(file.Name.ToLower())) {
                 // Console.WriteLine("[Regex] True: " + file.Name + ", " + ignore);
                 _continue = true;
             }
         }
 
-        if (_continue)
-        {
+        if (_continue) {
             continue;
         }
 
         // GUI でしたいした日数を超えている場合
-        if (days >= item.Day)
-        {
+        if (days >= item.Day) {
             var filename = file.Name;
 
             // 移動先のフォルダに同じ名前のファイルがある場合 _Guid を付け足して移動
-            if (File.Exists(item.TargetPath + Path.DirectorySeparatorChar + filename))
-            {
+            if (File.Exists(item.TargetPath + Path.DirectorySeparatorChar + filename)) {
                 var basename = Path.GetFileNameWithoutExtension(filename);
                 var extension = Path.GetExtension(filename);
 
@@ -106,27 +89,22 @@ static void ForDirectory(Item item, String directory)
 
             Directory.CreateDirectory(item.TargetPath);
 
-            try
-            {
+            try {
                 Console.WriteLine($"{days}日: {file.Directory?.FullName} _ {file.Name}");
                 Console.WriteLine($"{filename} を {item.TargetPath} に移動します。");
 
                 file.MoveTo(item.TargetPath + Path.DirectorySeparatorChar + filename);
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
 
             }
         }
     }
 }
 
-static List<String> GetIgnoreFiles()
-{
+static List<String> GetIgnoreFiles() {
     var list = new List<String>();
 
-    foreach (var filename in IgnoreItemFactory.GetInfos())
-    {
+    foreach (var filename in IgnoreItemFactory.GetInfos()) {
         list.Add(filename.Name);
     }
 

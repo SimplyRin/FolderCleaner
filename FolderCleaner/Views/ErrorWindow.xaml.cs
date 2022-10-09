@@ -12,20 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace FolderCleaner
-{
+namespace FolderCleaner {
     /// <summary>
     /// ErrorWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class ErrorWindow : Window
-    {
-        public ErrorWindow()
-        {
+    public partial class ErrorWindow : Window {
+        public ErrorWindow() {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
+        private void Button_Click(object sender, RoutedEventArgs e) {
             this.Close();
         }
     }

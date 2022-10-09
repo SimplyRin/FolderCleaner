@@ -5,12 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FolderCleaner.ViewModels
-{
-    public class IgnoreDeleteViewModel : ObservableObject
-    {
+namespace FolderCleaner.ViewModels {
+    public class IgnoreDeleteViewModel : ObservableObject {
 
-        
+
 
     }
 }

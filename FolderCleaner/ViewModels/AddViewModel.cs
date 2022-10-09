@@ -5,10 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FolderCleaner.ViewModels
-{
-    public class AddViewModel : ObservableObject
-    {
+namespace FolderCleaner.ViewModels {
+    public class AddViewModel : ObservableObject {
         private string tName;
 
         public string TName { get => tName; set => SetProperty(ref tName, value); }

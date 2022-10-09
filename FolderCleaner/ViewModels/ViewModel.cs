@@ -10,14 +10,11 @@ using System.Diagnostics;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 
-namespace FolderCleaner.ViewModels
-{
-    public class ViewModel : ObservableObject
-    {
+namespace FolderCleaner.ViewModels {
+    public class ViewModel : ObservableObject {
         private static ViewModel _rootViewModel;
 
-        public static ViewModel GetInstance()
-        {
+        public static ViewModel GetInstance() {
             return _rootViewModel;
         }
 
@@ -32,10 +29,8 @@ namespace FolderCleaner.ViewModels
         // 「削除」コマンド
         public ICommand DeleteCommand { get; }
 
-        public ViewModel()
-        {
-            if (this.loaded)
-            {
+        public ViewModel() {
+            if (this.loaded) {
                 return;
             }
 
@@ -61,8 +56,7 @@ namespace FolderCleaner.ViewModels
             get {
                 return this.items;
             }
-            set
-            {
+            set {
                 SetProperty(ref this.items, value);
                 MainWindow.GetInstance().UpdateListBox();
                 MainWindow.GetInstance().UpdateInfoBox();
@@ -72,28 +66,22 @@ namespace FolderCleaner.ViewModels
         }
 
         // データリスト（プロパティ）
-        public List<Item> IgnoreItems
-        {
-            get
-            {
+        public List<Item> IgnoreItems {
+            get {
                 return IgnoreViewModel.GetInstance().IgnoreItems;
             }
-            set
-            {
+            set {
                 IgnoreViewModel.GetInstance().IgnoreItems = value;
             }
         }
 
         // ユーザーが選択したアイテム
         private Item _selectedItem;
-        public Item SelectedItem
-        {
-            get
-            {
+        public Item SelectedItem {
+            get {
                 return this._selectedItem;
             }
-            set
-            {
+            set {
                 this._selectedItem = value;
 
                 // 選択された都道府県の地域リストを取得する
@@ -104,46 +92,37 @@ namespace FolderCleaner.ViewModels
             }
         }
 
-        public bool IsClickable
-        {
-            get
-            {
+        public bool IsClickable {
+            get {
                 return this.SelectedItem != null;
             }
         }
 
         // 名前、日、移動先などのデータ情報
         private List<Info> _infos;
-        public List<Info> Infos
-        {
-            get
-            {
+        public List<Info> Infos {
+            get {
                 return this._infos;
             }
-            set
-            {
+            set {
                 SetProperty(ref this._infos, value);
             }
         }
 
-        public void ShowIgnoreList()
-        {
+        public void ShowIgnoreList() {
             // Infos = IgnoreItemFactory.GetInfos();
             var ignore = new IgnoreListWindow();
             ignore.Show();
         }
 
-        public void Add()
-        {
+        public void Add() {
             var add = new AddWindow();
             add.XUniqueId.Content = Guid.NewGuid().ToString();
             add.Show();
         }
 
-        public void Edit()
-        {
-            if (this.SelectedItem == null)
-            {
+        public void Edit() {
+            if (this.SelectedItem == null) {
                 return;
             }
 
@@ -161,10 +140,8 @@ namespace FolderCleaner.ViewModels
             add.Show();
         }
 
-        public void Delete()
-        {
-            if (this.SelectedItem == null)
-            {
+        public void Delete() {
+            if (this.SelectedItem == null) {
                 return;
             }
 

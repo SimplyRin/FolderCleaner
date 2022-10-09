@@ -14,45 +14,37 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FolderCleaner
-{
+namespace FolderCleaner {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
-    {
+    public partial class MainWindow : Window {
         private static MainWindow _MainWindow { get; set; }
 
-        public static MainWindow GetInstance()
-        {
+        public static MainWindow GetInstance() {
             return _MainWindow;
         }
 
-        public MainWindow()
-        {
+        public MainWindow() {
             InitializeComponent();
 
             _MainWindow = this;
         }
 
         // アイテム一覧の ListBox の選択が変化したときに呼ばれる
-        private void ItemListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        private void ItemListBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             itemListBox.ScrollIntoView(itemListBox.SelectedItem);
         }
 
-        public void UpdateListBox()
-        {
+        public void UpdateListBox() {
             itemListBox.Items.Refresh();
         }
 
-        public void UpdateInfoBox()
-        {
+        public void UpdateInfoBox() {
             infoListBox.Items.Refresh();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
+        private void Button_Click(object sender, RoutedEventArgs e) {
             ViewModel.GetInstance().ShowIgnoreList();
         }
     }

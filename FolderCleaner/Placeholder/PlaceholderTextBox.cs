@@ -7,10 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace FolderCleaner.ViewModels
-{
-    public class PlaceholderTextBox : TextBox
-    {
+namespace FolderCleaner.ViewModels {
+    public class PlaceholderTextBox : TextBox {
         //プレースホルダ―用のプロパティを追加
         public static readonly DependencyProperty PlaceholderProperty =
             DependencyProperty.Register("Placeholder", typeof(string),
@@ -20,14 +18,11 @@ namespace FolderCleaner.ViewModels
         /// <summary>
         /// プレースホルダーのプロパティを設定
         /// </summary>
-        public string Placeholder
-        {
-            get
-            {
+        public string Placeholder {
+            get {
                 return _placeholder;
             }
-            set
-            {
+            set {
                 _placeholder = value;
             }
         }
@@ -37,25 +32,19 @@ namespace FolderCleaner.ViewModels
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private static void OnPlaceHolderChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-        {
+        private static void OnPlaceHolderChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e) {
             var textBox = sender as TextBox;
-            if (textBox == null)
-            {
+            if (textBox == null) {
                 return;
             }
             //設定された文言をプレースホルダにいれます
             var placeHolder = e.NewValue as string;
             var handler = CreateEventHandler(placeHolder);
-            if (string.IsNullOrEmpty(placeHolder))
-            {
+            if (string.IsNullOrEmpty(placeHolder)) {
                 textBox.TextChanged -= handler;
-            }
-            else
-            {
+            } else {
                 textBox.TextChanged += handler;
-                if (string.IsNullOrEmpty(textBox.Text))
-                {
+                if (string.IsNullOrEmpty(textBox.Text)) {
                     //プレースホルダ―の背景に文字列を設定します
                     textBox.Background = CreateVisualBrush(placeHolder);
                 }
@@ -67,18 +56,13 @@ namespace FolderCleaner.ViewModels
         /// </summary>
         /// <param name="placeHolder"></param>
         /// <returns></returns>
-        private static TextChangedEventHandler CreateEventHandler(string placeHolder)
-        {
-            return (sender, e) =>
-            {
+        private static TextChangedEventHandler CreateEventHandler(string placeHolder) {
+            return (sender, e) => {
                 var textBox = (TextBox)sender;
-                if (string.IsNullOrEmpty(textBox.Text))
-                {
+                if (string.IsNullOrEmpty(textBox.Text)) {
                     //Textが入力されていなければプレースホルダーを表示します
                     textBox.Background = CreateVisualBrush(placeHolder);
-                }
-                else
-                {
+                } else {
                     //Textが入力されたときに背景を真っ白にします
                     textBox.Background = new SolidColorBrush(Colors.White);
                 }
@@ -90,11 +74,9 @@ namespace FolderCleaner.ViewModels
         /// </summary>
         /// <param name="placeHolder">PlaceHolderに設定された文言</param>
         /// <returns>塗りつぶしの色を返します</returns>
-        private static VisualBrush CreateVisualBrush(string placeHolder)
-        {
+        private static VisualBrush CreateVisualBrush(string placeHolder) {
             //入力された文言でTextBlockを生成します
-            var visual = new TextBlock()
-            {
+            var visual = new TextBlock() {
                 Text = placeHolder,
                 Padding = new Thickness(2, 1, 500, 1),
                 Foreground = new SolidColorBrush(Colors.LightGray),
@@ -103,8 +85,7 @@ namespace FolderCleaner.ViewModels
                 Background = new SolidColorBrush(Colors.White)
             };
             //生成された塗りつぶしの色を返します
-            return new VisualBrush(visual)
-            {
+            return new VisualBrush(visual) {
                 Stretch = Stretch.None,
                 TileMode = TileMode.None,
                 AlignmentX = AlignmentX.Left,
@@ -117,8 +98,7 @@ namespace FolderCleaner.ViewModels
         /// </summary>
         /// <param name="textbox">自分自身のTextBox</param>
         /// <param name="placeHolder">PlaceHolderに設定された文言</param>
-        private static void SetPlaceHolderText(TextBox textbox, string placeHolder)
-        {
+        private static void SetPlaceHolderText(TextBox textbox, string placeHolder) {
             textbox.SetValue(PlaceholderProperty, placeHolder);
         }
 
@@ -127,8 +107,7 @@ namespace FolderCleaner.ViewModels
         /// </summary>
         /// <param name="textBox"></param>
         /// <returns>プレースホルダーで設定された文字を返します</returns>
-        public static string GetPlaceHolderText(TextBox textBox)
-        {
+        public static string GetPlaceHolderText(TextBox textBox) {
             return textBox.GetValue(PlaceholderProperty) as string;
         }
     }

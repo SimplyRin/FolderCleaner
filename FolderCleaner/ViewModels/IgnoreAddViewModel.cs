@@ -5,10 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FolderCleaner.ViewModels
-{
-    public class IgnoreAddViewModel : ObservableObject
-    {
+namespace FolderCleaner.ViewModels {
+    public class IgnoreAddViewModel : ObservableObject {
 
         private string tName;
 

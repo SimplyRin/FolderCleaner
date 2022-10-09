@@ -9,31 +9,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace FolderCleaner.ViewModels
-{
-    public class IgnoreViewModel : ObservableObject
-    {
+namespace FolderCleaner.ViewModels {
+    public class IgnoreViewModel : ObservableObject {
         private static IgnoreViewModel _IgnoreViewModel;
 
-        public static IgnoreViewModel GetInstance()
-        {
+        public static IgnoreViewModel GetInstance() {
             return _IgnoreViewModel;
         }
 
-        public IgnoreViewModel()
-        {
+        public IgnoreViewModel() {
             _IgnoreViewModel = this;
         }
 
         // データリスト（プロパティ）
-        public List<Item> IgnoreItems
-        {
-            get
-            {
+        public List<Item> IgnoreItems {
+            get {
                 return ViewModel.GetInstance().ignoreItems;
             }
-            set
-            {
+            set {
                 SetProperty(ref ViewModel.GetInstance().ignoreItems, value);
                 IgnoreListWindow.GetInstance().UpdateIgnoreListBox();
 
@@ -43,14 +36,11 @@ namespace FolderCleaner.ViewModels
 
         // ユーザーが選択したアイテム
         private Item _selectedItem;
-        public Item SelectedItem
-        {
-            get
-            {
+        public Item SelectedItem {
+            get {
                 return this._selectedItem;
             }
-            set
-            {
+            set {
                 this._selectedItem = value;
             }
         }
@@ -58,8 +48,7 @@ namespace FolderCleaner.ViewModels
         private RelayCommand addCommand;
         public ICommand AddCommand => addCommand ??= new RelayCommand(Add);
 
-        private void Add()
-        {
+        private void Add() {
             var add = new IgnoreAddWindow();
             add.XUniqueId.Content = Guid.NewGuid().ToString();
             add.Show();
@@ -68,10 +57,8 @@ namespace FolderCleaner.ViewModels
         private RelayCommand deleteCommand;
         public ICommand DeleteCommand => deleteCommand ??= new RelayCommand(Delete);
 
-        private void Delete()
-        {
-            if (this.SelectedItem == null)
-            {
+        private void Delete() {
+            if (this.SelectedItem == null) {
                 return;
             }
 

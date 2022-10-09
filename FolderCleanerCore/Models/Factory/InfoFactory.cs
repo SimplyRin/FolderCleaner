@@ -4,15 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FolderCleanerCore.Models
-{
-    public class InfoFactory
-    {
+namespace FolderCleanerCore.Models {
+    public class InfoFactory {
 
-        public static List<Info> GetInfos(Item item)
-        {
-            if (item == null)
-            {
+        public static List<Info> GetInfos(Item item) {
+            if (item == null) {
                 return new List<Info>();
             }
 

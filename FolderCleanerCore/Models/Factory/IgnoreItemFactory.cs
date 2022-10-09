@@ -5,21 +5,16 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace FolderCleanerCore.Models
-{
-    public class IgnoreItemFactory
-    {
+namespace FolderCleanerCore.Models {
+    public class IgnoreItemFactory {
 
-        public static List<Info> GetInfos()
-        {
+        public static List<Info> GetInfos() {
             var infos = GetItems();
 
             var list = new List<Info>();
 
-            foreach (var info in infos)
-            {
-                list.Add(new Info()
-                {
+            foreach (var info in infos) {
+                list.Add(new Info() {
                     Name = info.Name,
                 });
             }
@@ -28,10 +23,8 @@ namespace FolderCleanerCore.Models
         }
 
         // データを取得する
-        public static List<Item> GetItems()
-        {
-            if (!File.Exists(GetConfigFilePath()))
-            {
+        public static List<Item> GetItems() {
+            if (!File.Exists(GetConfigFilePath())) {
                 var list = new List<Item>
                 {
                     new Item()
@@ -64,16 +57,13 @@ namespace FolderCleanerCore.Models
             // item.json から Item インスタンスを生成する
             using var reader = File.OpenText(GetConfigFilePath());
 
-            return JsonSerializer.Deserialize<List<Item>>(reader.ReadToEnd(), new JsonSerializerOptions()
-            {
+            return JsonSerializer.Deserialize<List<Item>>(reader.ReadToEnd(), new JsonSerializerOptions() {
                 PropertyNameCaseInsensitive = true
             });
         }
 
-        public static void SaveItems(List<Item> items)
-        {
-            if (items == null)
-            {
+        public static void SaveItems(List<Item> items) {
+            if (items == null) {
                 return;
             }
 
@@ -85,8 +75,7 @@ namespace FolderCleanerCore.Models
             JsonSerializer.Serialize(jsonWriter, items);
         }
 
-        public static String GetConfigFilePath()
-        {
+        public static String GetConfigFilePath() {
             var directory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + Path.DirectorySeparatorChar + ".foldercleaner";
             Directory.CreateDirectory(directory);
 

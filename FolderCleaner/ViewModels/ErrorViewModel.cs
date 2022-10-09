@@ -5,10 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FolderCleaner.ViewModels
-{
-    public class ErrorViewModel : ObservableObject
-    {
+namespace FolderCleaner.ViewModels {
+    public class ErrorViewModel : ObservableObject {
 
         private object tDescription;
 
