@@ -13,7 +13,7 @@
         <Label Content="このリストに登録したファイルは移動処理されません。" FontSize="18" Margin="10"/>
         <StackPanel Orientation="Horizontal">
             <Label Content="ファイル名:" FontSize="18" Margin="10"/>
-            <local:PlaceholderTextBox x:Name="XName" Text="{Binding TName}" Placeholder=""  Height="30" Width="400" Margin="12" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></local:PlaceholderTextBox>
+            <local:PlaceholderTextBox x:Name="XName" Text="{Binding TName}" Placeholder="*.exe"  Height="30" Width="400" Margin="12" VerticalContentAlignment="Center"></local:PlaceholderTextBox>
         </StackPanel>
 
         <Label x:Name="XUniqueId" Content="" Height="0" Width="0" Visibility="Hidden"/>
